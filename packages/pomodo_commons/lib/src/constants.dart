@@ -1,5 +1,5 @@
 abstract class Constants {
-  static const pomodoTodoistProjectName = 'pomodo_app';
+  static const pomodoTodoistProjectName = 'Pomodo';
 
   static const todoistBaseUrl = 'https://api.todoist.com/rest/v2';
   static const todoistTestToken = String.fromEnvironment('TODOIST_API_TEST_TOKEN');
