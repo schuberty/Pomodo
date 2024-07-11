@@ -1,0 +1,6 @@
+tags:
+  unit:
+    timeout: 10s
+  integration:
+    timeout: 1m
+    verbose_trace: true
