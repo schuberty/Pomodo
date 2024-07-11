@@ -1,5 +1,5 @@
 name: pomodo
-description: "A mobile Kanban with tracking application"
+description: "A mobile Kanban with task time tracking application. (Pomodoro + Kanban)"
 publish_to: "none"
 version: 0.1.0
 
@@ -15,8 +15,9 @@ dependencies:
   flutter_bloc: ^8.1.6
   equatable: ^2.0.5
 
-  # Routing
-  go_router: ^14.2.0
+  # Widgets
+  gap: ^3.0.1
+  drag_and_drop_lists: ^0.4.1
 
   # Commons
   pomodo_commons:
