@@ -33,7 +33,7 @@ class Task {
 
   final String id;
   final String projectId;
-  final String sectionId;
+  final String? sectionId;
 
   final String content;
   final DateTime createdAt;
