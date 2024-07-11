@@ -4,8 +4,15 @@ sealed class Either<F, S> {
   bool get isFailure;
   bool get isSuccess;
 
-  F? get failure => fold((f) => f, (s) => null);
-  S? get success => fold((f) => null, (s) => s);
+  F get failure => fold(
+        (f) => f,
+        (s) => throw StateError('Cannot access failure value on Success'),
+      );
+
+  S get success => fold(
+        (f) => throw StateError('Cannot access success value on Failure'),
+        (s) => s,
+      );
 
   T fold<T>(T Function(F) failureFn, T Function(S) successFn);
 
