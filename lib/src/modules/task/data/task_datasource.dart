@@ -1,7 +1,7 @@
 import 'package:pomodo_commons/pomodo_commons.dart';
 
 import '../../../shared/models/task_model.dart';
-import 'objects/updated_task.dart';
+import 'objects/task_update.dart';
 
 class TaskNotDeleted implements ClientError {
   @override
@@ -13,7 +13,7 @@ abstract class TaskDatasource {
 
   Result<Task> createTask({required String projectId, required String sectionId, required String taskContent});
 
-  Result<Task> updateTask({required UpdatedTask updatedTask});
+  Result<Task> updateTask({required TaskUpdate taskUpdate});
 
   Result<void> deleteTask({required Task task});
 }
@@ -65,12 +65,13 @@ class TodoistTaskDatasource implements TaskDatasource {
   }
 
   @override
-  Result<Task> updateTask({required UpdatedTask updatedTask}) async {
-    final endpoint = Endpoint('/tasks/${updatedTask.oldTask.id}', method: Method.POST);
+  Result<Task> updateTask({required TaskUpdate taskUpdate}) async {
+    final endpoint = Endpoint('/tasks/${taskUpdate.taskToUpdate.id}', method: Method.POST);
 
+    // TODO: Add check if updatedTask has no changes to update
     final response = await client.request(
       endpoint,
-      data: updatedTask.toMap(),
+      data: taskUpdate.toMap(),
     );
 
     try {
@@ -88,7 +89,7 @@ class TodoistTaskDatasource implements TaskDatasource {
 
     final response = await client.request(endpoint);
 
-    if (response.isSuccess && response.success?.statusCode != 204) {
+    if (response.isSuccess && response.success.statusCode != 204) {
       return Failure(TaskNotDeleted());
     }
 

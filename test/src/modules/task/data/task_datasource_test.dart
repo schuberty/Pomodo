@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodo/src/modules/task/data/objects/updated_task.dart';
+import 'package:pomodo/src/modules/task/data/objects/task_update.dart';
 import 'package:pomodo/src/modules/task/data/task_datasource.dart';
 import 'package:pomodo/src/shared/models/task_model.dart';
 import 'package:pomodo/src/shared/utils/utils.dart';
@@ -42,7 +42,7 @@ void main() {
       expect(result.success, isA<List<Task>>());
       expect(result.success, hasLength(1));
 
-      final firstTask = result.success?.first;
+      final firstTask = result.success.first;
 
       expect(
         firstTask,
@@ -129,11 +129,11 @@ void main() {
       client.whenSuccess(() => Response(data: updatedTaskMap));
 
       final result = await datasource.updateTask(
-        updatedTask: UpdatedTask(
-          oldTask: Task.fromMap(taskMap),
-          updatedContent: updatedTaskContent,
-          updatedDescription: updatedTaskDescription,
-          updatedTrackingDuration: const Duration(seconds: updatedTaskDurationSeconds),
+        taskUpdate: TaskUpdate(
+          taskToUpdate: Task.fromMap(taskMap),
+          content: updatedTaskContent,
+          description: updatedTaskDescription,
+          trackingDuration: const Duration(seconds: updatedTaskDurationSeconds),
         ),
       );
 
@@ -163,7 +163,7 @@ void main() {
       client.whenSuccess(() => Response(data: wrongMap));
 
       final result = await datasource.updateTask(
-        updatedTask: UpdatedTask(oldTask: Task.fromMap(taskMap)),
+        taskUpdate: TaskUpdate(taskToUpdate: Task.fromMap(taskMap)),
       );
 
       expect(result, isA<Failure>());

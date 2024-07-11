@@ -47,7 +47,9 @@ void main() {
       expect(result, isA<Success>());
       expect(
         result.success,
-        isA<Project>().having((e) => e.name, 'name', testProjectName),
+        isA<Project>()
+            .having((e) => e.name, 'name', testProjectName)
+            .having((e) => e.sections, 'sections', hasLength(3)),
       );
 
       testProjectCreated = result.success;
