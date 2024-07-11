@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 part 'server_error.dart';
 
 abstract class ClientError implements Exception {
-  const ClientError({this.message = '', StackTrace? stackTrace});
+  const ClientError({this.message = ''});
 
   final String message;
 }
