@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import 'src/app_widget.dart';
+import 'src/core/app_provider.dart';
+import 'src/core/app_router.dart';
+import 'src/modules/app_modules.dart';
+import 'src/modules/home/home_module.dart';
 
 void main() {
-  runApp(const MainApp());
-}
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+  runApp(
+    AppProvider(
+      child: AppRouter(
+        modules: appModules,
+        initialRoute: const HomeModule().path,
+        child: const PomodoApp(),
       ),
-    );
-  }
+    ),
+  );
 }
