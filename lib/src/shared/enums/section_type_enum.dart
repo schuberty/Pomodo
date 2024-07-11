@@ -1,10 +1,12 @@
-enum SectionType {
-  todo('To Do'),
-  inProgress('In Progress'),
-  done('Done'),
-  invalid('');
+import 'package:flutter/material.dart';
 
-  const SectionType(this.name);
+enum SectionType {
+  todo('To Do', color: Colors.blue),
+  inProgress('In Progress', color: Colors.orange),
+  done('Done', color: Colors.green),
+  invalid('', color: Colors.transparent);
+
+  const SectionType(this.name, {required this.color});
 
   factory SectionType.fromMap(Map<String, dynamic> map) {
     return SectionType.values.firstWhere(
@@ -14,4 +16,5 @@ enum SectionType {
   }
 
   final String name;
+  final Color color;
 }
