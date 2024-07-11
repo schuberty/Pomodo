@@ -45,11 +45,11 @@ Where zero is the duration in seconds of how long the task has being tracked for
 
 - [x] Create Project, Section and Task model (+30min)
   - [x] Create models test
-- [ ] Create Project, Section and Task datasource (+3h)
-  - [ ] Tests for each datasource implementation
-  - [ ] Connect with developer todoist for Project endpoints integration tests
-  - [ ] Add environment variable for test token
-- [ ] Create Task comment datasource
+- [x] Create Project, Section and Task datasource (+3h)
+  - [x] Tests for each datasource implementation
+  - [x] Connect with developer todoist for Project endpoints integration tests
+  - [x] Add environment variable for test token
+- [x] Create Task comment datasource
 - [ ] Create Project repository
   - [ ] Create repository test
   - [ ] Add to global app repositories
