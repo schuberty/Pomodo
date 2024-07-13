@@ -5,10 +5,10 @@ import '../../../../shared/enums/section_type_enum.dart';
 import '../../../../shared/models/project_model.dart';
 import '../../../../shared/models/project_section_model.dart';
 import '../../../../shared/models/task_model.dart';
-import '../../../task/data/task_comment_datasource.dart';
-import '../../../task/data/task_datasource.dart';
-import '../../data/project_datasource.dart';
-import '../../data/project_sections_datasource.dart';
+import '../../../task/data/datasources/task_comment_datasource.dart';
+import '../../../task/data/datasources/task_datasource.dart';
+import '../../data/datasources/project_datasource.dart';
+import '../../data/datasources/project_sections_datasource.dart';
 import '../../data/repositories/project_repository.dart';
 
 class TodoistProjectRepository implements ProjectRepository {
@@ -42,6 +42,7 @@ class TodoistProjectRepository implements ProjectRepository {
     }
 
     final sections = sectionsResult.success;
+    sections.sort((a, b) => a.type.index.compareTo(b.type.index));
 
     final tasksResult = await getParentProjectTasks(parentProject);
 

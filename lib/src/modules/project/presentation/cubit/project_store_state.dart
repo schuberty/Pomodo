@@ -1,4 +1,4 @@
-part of 'project_cubit.dart';
+part of 'project_store_cubit.dart';
 
 sealed class ProjectStoreState extends Equatable {
   const ProjectStoreState();

@@ -5,7 +5,7 @@ import 'package:pomodo_commons/pomodo_commons.dart';
 import '../../../../shared/models/project_model.dart';
 import '../../data/repositories/project_repository.dart';
 
-part 'project_state.dart';
+part 'project_store_state.dart';
 
 abstract class ProjectStoreCubit extends Cubit<ProjectStoreState> {
   ProjectStoreCubit(super.initialState);
@@ -28,6 +28,8 @@ class AppProjectStoreCubit extends ProjectStoreCubit {
       final failure = projectResult.failure;
 
       emit(ProjectStoreError(message: failure.message));
+
+      return;
     }
 
     final project = projectResult.success;

@@ -1,6 +1,6 @@
 import 'package:pomodo_commons/pomodo_commons.dart';
 
-import '../../../shared/models/project_model.dart';
+import '../../../../shared/models/project_model.dart';
 
 abstract class ProjectDatasource {
   Result<List<Project>> getAllProjects();

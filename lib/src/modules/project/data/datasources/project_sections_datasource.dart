@@ -1,7 +1,7 @@
 import 'package:pomodo_commons/pomodo_commons.dart';
 
-import '../../../shared/enums/section_type_enum.dart';
-import '../../../shared/models/project_section_model.dart';
+import '../../../../shared/enums/section_type_enum.dart';
+import '../../../../shared/models/project_section_model.dart';
 
 abstract class ProjectSectionDatasource {
   Result<List<ProjectSection>> getAllSections();
