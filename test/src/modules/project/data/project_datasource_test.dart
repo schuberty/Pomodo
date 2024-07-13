@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodo/src/modules/project/data/project_datasource.dart';
+import 'package:pomodo/src/modules/project/data/datasources/project_datasource.dart';
 import 'package:pomodo/src/shared/models/project_model.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
 
@@ -32,7 +32,7 @@ void main() {
       expect(result.success, isA<List<Project>>());
       expect(result.success, hasLength(2));
 
-      final firstProject = result.success?.first;
+      final firstProject = result.success.first;
 
       expect(
         firstProject,
@@ -66,7 +66,7 @@ void main() {
         isA<Project>().having((e) => e.id, 'id', '1').having((e) => e.name, 'name', projectName),
       );
 
-      createdProject = result.success!;
+      createdProject = result.success;
     }, tags: kUnitTestTag);
 
     test('createProject when wrong response data, expect a ParsingError', () async {
@@ -115,7 +115,7 @@ void main() {
       expect(result, isA<Success>());
       expect(result.success, isA<Project>().having((e) => e.name, 'name', projectName));
 
-      createdProject = result.success!;
+      createdProject = result.success;
     }, tags: kIntegrationTestTag);
 
     test('deleteProject expect the newly created Project to be deleted', () async {

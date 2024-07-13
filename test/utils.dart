@@ -12,7 +12,7 @@ HttpClient getTodoistIntegrationApiClient() {
   }
 
   return DioClient.baseUrl(
-    Constants.todoistBaseUrl,
+    Constants.todoistBaseRestUrl,
     interceptors: [ApiTokenInterceptor(apiToken: Constants.todoistTestToken)],
   );
 }

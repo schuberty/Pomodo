@@ -1,18 +1,20 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodo/src/modules/project/data/project_datasource.dart';
-import 'package:pomodo/src/modules/project/data/project_sections_datasource.dart';
+import 'package:pomodo/src/modules/project/data/datasources/project_datasource.dart';
+import 'package:pomodo/src/modules/project/data/datasources/project_sections_datasource.dart';
 import 'package:pomodo/src/modules/project/data/repositories/project_repository.dart';
 import 'package:pomodo/src/modules/project/domain/repositories/todoist_project_repository.dart';
-import 'package:pomodo/src/modules/task/data/task_comment_datasource.dart';
-import 'package:pomodo/src/modules/task/data/task_datasource.dart';
+import 'package:pomodo/src/modules/task/data/datasources/task_comment_datasource.dart';
+import 'package:pomodo/src/modules/task/data/datasources/task_datasource.dart';
 import 'package:pomodo/src/shared/models/project_model.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
 
+import '../../../../../mocks/mocks.dart';
 import '../../../../../utils.dart';
 
 void main() {
   group('TodoistProjectRepository integration', () {
-    late HttpClient client;
+    late HttpClient restClient;
+    late HttpClient syncClient;
 
     late ProjectDatasource projectDatasource;
     late ProjectSectionDatasource projectSectionDatasource;
@@ -26,12 +28,13 @@ void main() {
     late final Project testProjectCreated;
 
     setUp(() {
-      client = getTodoistIntegrationApiClient();
+      restClient = getTodoistIntegrationApiClient();
+      syncClient = HttpClientMock();
 
-      projectDatasource = TodoistProjectDatasource(client: client);
-      projectSectionDatasource = TodoistProjectSectionDatasource(client: client);
-      taskDatasource = TodoistTaskDatasource(client: client);
-      taskCommentDatasource = TodoistTaskCommentDatasource(client: client);
+      projectDatasource = TodoistProjectDatasource(client: restClient);
+      projectSectionDatasource = TodoistProjectSectionDatasource(client: restClient);
+      taskDatasource = TodoistTaskDatasource(restClient: restClient, syncClient: syncClient);
+      taskCommentDatasource = TodoistTaskCommentDatasource(client: restClient);
 
       projectRepository = TodoistProjectRepository(
         projectDatasource: projectDatasource,

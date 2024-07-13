@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:pomodo/src/core/errors/failures.dart';
+import 'package:pomodo/src/modules/task/data/datasources/task_datasource.dart';
 import 'package:pomodo/src/modules/task/data/objects/task_update.dart';
-import 'package:pomodo/src/modules/task/data/task_datasource.dart';
 import 'package:pomodo/src/shared/models/task_model.dart';
 import 'package:pomodo/src/shared/utils/utils.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
@@ -10,7 +11,8 @@ import '../../../../utils.dart';
 
 void main() {
   group('ProjectSectionDatasource', () {
-    late HttpClientMock client;
+    late HttpClientMock restClient;
+    late HttpClientMock syncClient;
     late TaskDatasource datasource;
 
     const taskContent = 'Buy Milk';
@@ -29,12 +31,14 @@ void main() {
     };
 
     setUp(() {
-      client = HttpClientMock();
-      datasource = TodoistTaskDatasource(client: client);
+      restClient = HttpClientMock();
+      syncClient = HttpClientMock();
+
+      datasource = TodoistTaskDatasource(restClient: restClient, syncClient: syncClient);
     });
 
     test('getAllActiveTasks expect a list of Tasks', () async {
-      client.whenSuccess(() => Response(data: [taskMap]));
+      restClient.whenSuccess(() => Response(data: [taskMap]));
 
       final result = await datasource.getAllActiveTasks();
 
@@ -61,7 +65,7 @@ void main() {
     test('getAllActiveTasks when wrong response data, expect a ParsingError', () async {
       final wrongMap = {...taskMap, 'id': null};
 
-      client.whenSuccess(() => Response(data: [wrongMap]));
+      restClient.whenSuccess(() => Response(data: [wrongMap]));
 
       final result = await datasource.getAllActiveTasks();
 
@@ -70,12 +74,13 @@ void main() {
     }, tags: kUnitTestTag);
 
     test('createTask expect a newly created Task', () async {
-      client.whenSuccess(() => Response(data: taskMap));
+      restClient.whenSuccess(() => Response(data: taskMap));
 
       final result = await datasource.createTask(
         projectId: taskProjectId,
         sectionId: taskSectionId,
         taskContent: taskContent,
+        taskDescription: '',
       );
 
       expect(result, isA<Success>());
@@ -100,12 +105,13 @@ void main() {
     test('createTask when wrong response data, expect a ParsingError', () async {
       final wrongMap = {...taskMap, 'id': null};
 
-      client.whenSuccess(() => Response(data: wrongMap));
+      restClient.whenSuccess(() => Response(data: wrongMap));
 
       final result = await datasource.createTask(
         projectId: taskProjectId,
         sectionId: taskSectionId,
         taskContent: taskContent,
+        taskDescription: '',
       );
 
       expect(result, isA<Failure>());
@@ -126,7 +132,7 @@ void main() {
         'description': updatedTaskDescriptionWithMetadata,
       };
 
-      client.whenSuccess(() => Response(data: updatedTaskMap));
+      restClient.whenSuccess(() => Response(data: updatedTaskMap));
 
       final result = await datasource.updateTask(
         taskUpdate: TaskUpdate(
@@ -160,7 +166,7 @@ void main() {
     test('updateTask when wrong response data, expect a ParsingError', () async {
       final wrongMap = {...taskMap, 'content': null};
 
-      client.whenSuccess(() => Response(data: wrongMap));
+      restClient.whenSuccess(() => Response(data: wrongMap));
 
       final result = await datasource.updateTask(
         taskUpdate: TaskUpdate(taskToUpdate: Task.fromMap(taskMap)),
@@ -173,7 +179,7 @@ void main() {
     test('deleteTask expect a Task to be deleted', () async {
       final task = Task.fromMap(taskMap);
 
-      client.whenSuccess(() => Response(data: {}, statusCode: 204));
+      restClient.whenSuccess(() => Response(data: {}, statusCode: 204));
 
       final result = await datasource.deleteTask(task: task);
 
@@ -183,7 +189,7 @@ void main() {
     test('deleteTask when failed to delete, expect a TaskNotDeleted error', () async {
       final task = Task.fromMap(taskMap);
 
-      client.whenSuccess(() => Response(data: {}, statusCode: 200));
+      restClient.whenSuccess(() => Response(data: {}, statusCode: 200));
 
       final result = await datasource.deleteTask(task: task);
 

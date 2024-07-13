@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodo/src/modules/project/data/project_sections_datasource.dart';
+import 'package:pomodo/src/modules/project/data/datasources/project_sections_datasource.dart';
 import 'package:pomodo/src/shared/enums/section_type_enum.dart';
 import 'package:pomodo/src/shared/models/project_section_model.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
@@ -35,7 +35,7 @@ void main() {
       expect(result.success, isA<List<ProjectSection>>());
       expect(result.success, hasLength(1));
 
-      final firstSection = result.success?.first;
+      final firstSection = result.success.first;
 
       expect(
         firstSection,

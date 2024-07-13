@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pomodo/src/modules/task/data/task_comment_datasource.dart';
+import 'package:pomodo/src/core/errors/failures.dart';
+import 'package:pomodo/src/modules/task/data/datasources/task_comment_datasource.dart';
 import 'package:pomodo/src/shared/models/task_comment_model.dart';
 import 'package:pomodo/src/shared/models/task_model.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
@@ -49,7 +50,7 @@ void main() {
       expect(result.success, isA<List<TaskComment>>());
       expect(result.success, hasLength(1));
 
-      final firstComment = result.success?.first;
+      final firstComment = result.success.first;
 
       expect(
         firstComment,
