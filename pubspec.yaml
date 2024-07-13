@@ -19,7 +19,6 @@ dependencies:
 
   # Widgets
   gap: ^3.0.1
-  drag_and_drop_lists: ^0.4.1
 
   # Utils
   uuid: ^4.4.2
