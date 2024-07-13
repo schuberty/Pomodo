@@ -6,6 +6,8 @@ Pomodo (Pomodor + ToDo) is a mobile application made with Flutter for a case stu
 
 [![Flutter SDK Badge](https://img.shields.io/badge/SDK-Flutter-blue)](https://flutter.dev/docs)
 
+![presentation](https://github.com/user-attachments/assets/6ee40da6-7af5-468a-a539-c7c751b00086)
+
 </div>
 
 This application was made with Flutter using BLoC, and some other minimal packages.
