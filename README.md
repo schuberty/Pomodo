@@ -137,3 +137,10 @@ In case there's extra time remaining, implement the following in order of priori
   - [ ] <s>Offline first</s>
 - [ ] Feature:
   - [ ] User can create/rename/delete more than one project
+
+## Design references
+
+- [Responsive - Jerraa : Task Management Dashboard](https://dribbble.com/shots/20710151-Responsive-Jerraa-Task-Management-Dashboard)
+- [Tracky.so product work](https://dribbble.com/shots/22856193-Tracky-so-product-work)
+- [Flowbite Icons - 430+ free SVG icons in Figma](https://www.figma.com/community/file/1253280241668899805)
+- [UpTodo - Todo list app UI Kit](https://www.figma.com/community/file/1083383246788717048)
