@@ -2,7 +2,7 @@
 
 <div align="center">
 
-Pomodo (Pomodor + ToDo) is a mobile application made with Flutter for a case study and test.
+Pomodo (Pomodoro + ToDo) is a mobile application made with Flutter for a case study and test.
 
 [![Flutter SDK Badge](https://img.shields.io/badge/SDK-Flutter-blue)](https://flutter.dev/docs)
 
@@ -12,15 +12,17 @@ Pomodo (Pomodor + ToDo) is a mobile application made with Flutter for a case stu
 
 This application was made with Flutter using BLoC, and some other minimal packages.
 
-To run the app you need a todoist test token, that can be obtainable via the console at the [todist developer website](https://developer.todoist.com/), and run the application with your desired commands and a dart define flag, for example:
+To run the app you need a todoist test token, which can be obtained via the console at the [todist developer website](https://developer.todoist.com/), and run the application with your desired commands and a dart define flag, for example:
 
 > flutter run --release --dart-define TODOIST_API_TEST_TOKEN=$TODOIST_TEST_TOKEN
 
-If you wish to easily update the project dependencies, just run the script [scripts/refresh_project_pub.sh](./scripts/refresh_project_pub.sh), that it'll updated any dart pub dependencie necessary and build the application localization files.
-
 Where `$TODOIST_TEST_TOKEN` is the previously mentioned token.
 
-Other than that you can run the application tests using a helper script located at [scripts/run_tests.sh](./scripts/run_tests.sh), which depending on the test (unit or integration) you'll also need the test token.
+If you wish to easily update the project dependencies, just run the script [scripts/refresh_project_pub.sh](./scripts/refresh_project_pub.sh), which will update any dart pub dependencies necessary and build the application localization files.
+
+Additionally, you can run the application tests using a helper script located at [scripts/run_tests.sh](./scripts/run_tests.sh). Depending on the test type (unit or integration), you may also need the test token.
+
+Also, some tests may be failing as there were breaking changes near the end of the case study, and there wasn't enough time to address them.
 
 # MVP Development
 
@@ -49,7 +51,7 @@ Each Task has a description field, at the end of the description field there's a
 
 > <pomodo_app:time_ms:0>
 
-Where zero is the duration in seconds of how long the task has being tracked for, as the API doesn't have a metadata option, this was the alternative.
+Where zero is the duration in seconds of how long the task has been tracked for, as the API doesn't have a metadata option, this was the alternative.
 
 ## Progress tracking
 
