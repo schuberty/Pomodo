@@ -1,12 +1,8 @@
 import 'package:pomodo_commons/pomodo_commons.dart';
 
-import '../../../shared/models/task_comment_model.dart';
-import '../../../shared/models/task_model.dart';
-
-class CommentNotDeleted implements ClientError {
-  @override
-  final message = 'Task comment not deleted';
-}
+import '../../../../core/errors/failures.dart';
+import '../../../../shared/models/task_comment_model.dart';
+import '../../../../shared/models/task_model.dart';
 
 abstract class TaskCommentDatasource {
   Result<List<TaskComment>> getTaskComments({required Task task});
@@ -71,7 +67,7 @@ class TodoistTaskCommentDatasource implements TaskCommentDatasource {
 
     final response = await client.request(endpoint);
 
-    if (response.isSuccess && response.success?.statusCode != 204) {
+    if (response.isSuccess && response.success.statusCode != 204) {
       return Failure(CommentNotDeleted());
     }
 

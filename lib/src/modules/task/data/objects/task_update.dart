@@ -1,6 +1,8 @@
 import '../../../../shared/models/task_model.dart';
 import '../../../../shared/utils/utils.dart';
 
+// TODO: Remove task update if enough time
+@Deprecated('Use [TaskUpdateCommand] with Sync API instead')
 class TaskUpdate {
   TaskUpdate({
     required this.taskToUpdate,
