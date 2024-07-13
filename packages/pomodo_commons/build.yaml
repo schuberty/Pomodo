@@ -1,0 +1,11 @@
+targets:
+  $default:
+    builders:
+      slang_build_runner:
+        options:
+          obfuscation:
+            enabled: false
+          base_locale: en
+          translate_var: "i18n"
+          input_file_pattern: .json
+          input_directory: assets/i18n/

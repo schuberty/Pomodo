@@ -1,0 +1,36 @@
+{
+  "@@locale": "en_US",
+  "@appTitle": "Application title",
+  "appTitle": "Pomodo",
+  "@kanban": "Kanban module and component strings",
+  "home": {
+    "label": {
+      "searchTaskHint": "Search task"
+    }
+  },
+  "kanban": {
+    "column": {
+      "todo": "To-Do",
+      "inProgress": "In Progress",
+      "done": "Done"
+    },
+    "emptyColumnBody": "What you want to do today?",
+    "emptyColumnCaption": "Tap + to add your tasks"
+  },
+  "@task": "Kanban Task component strings",
+  "task": {
+    "addTaskTitle": "Add Task",
+    "label": {
+      "taskTitleHint": "Title",
+      "taskDescriptionHint": "Description",
+      "taskDurationLabel": "Task duration",
+      "noDescriptionLabel": "(No description)"
+    },
+    "actionLabel": {
+      "targetMoveTodo": "Move to To-Do",
+      "targetMoveInProgress": "Move to In Progress",
+      "targetMoveDone": "Move to Done",
+      "delete": "Delete"
+    }
+  }
+}
