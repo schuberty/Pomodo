@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodo_commons/pomodo_commons.dart';
 
-import '../modules/project/data/project_datasource.dart';
-import '../modules/project/data/project_sections_datasource.dart';
+import '../modules/project/data/datasources/project_datasource.dart';
+import '../modules/project/data/datasources/project_sections_datasource.dart';
 import '../modules/project/data/repositories/project_repository.dart';
 import '../modules/project/domain/repositories/todoist_project_repository.dart';
-import '../modules/project/presentation/cubit/project_cubit.dart';
-import '../modules/task/data/task_comment_datasource.dart';
-import '../modules/task/data/task_datasource.dart';
+import '../modules/project/presentation/cubit/project_store_cubit.dart';
+import '../modules/task/data/datasources/task_comment_datasource.dart';
+import '../modules/task/data/datasources/task_datasource.dart';
+import '../modules/task/data/repositories/task_repository.dart';
+import '../modules/task/domain/repositories/todoist_task_repository.dart';
 
 class AppProvider extends StatefulWidget {
   const AppProvider({super.key, required this.child});
@@ -20,15 +22,22 @@ class AppProvider extends StatefulWidget {
 }
 
 class _AppProviderState extends State<AppProvider> {
-  late final HttpClient todoistClient = DioClient.baseUrl(
-    Constants.todoistBaseUrl,
+  late final HttpClient todoistRestClient = DioClient.baseUrl(
+    Constants.todoistBaseRestUrl,
     interceptors: [ApiTokenInterceptor(apiToken: Constants.todoistTestToken)],
   );
 
-  late final ProjectDatasource projectDatasource = TodoistProjectDatasource(client: todoistClient);
-  late final ProjectSectionDatasource projectSectionDatasource = TodoistProjectSectionDatasource(client: todoistClient);
-  late final TaskDatasource taskDatasource = TodoistTaskDatasource(client: todoistClient);
-  late final TaskCommentDatasource taskCommentDatasource = TodoistTaskCommentDatasource(client: todoistClient);
+  late final HttpClient todoistSyncClient = DioClient.baseUrl(
+    Constants.todoistBaseSyncUrl,
+    interceptors: [ApiTokenInterceptor(apiToken: Constants.todoistTestToken)],
+  );
+
+  late final ProjectDatasource projectDatasource = TodoistProjectDatasource(client: todoistRestClient);
+  late final ProjectSectionDatasource projectSectionDatasource =
+      TodoistProjectSectionDatasource(client: todoistRestClient);
+  late final TaskDatasource taskDatasource =
+      TodoistTaskDatasource(restClient: todoistRestClient, syncClient: todoistSyncClient);
+  late final TaskCommentDatasource taskCommentDatasource = TodoistTaskCommentDatasource(client: todoistRestClient);
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +51,11 @@ class _AppProviderState extends State<AppProvider> {
             taskCommentDatasource: taskCommentDatasource,
           ),
         ),
+        RepositoryProvider<TaskRepository>(
+          create: (_) => TodoistTaskRepository(
+            taskDatasource: taskDatasource,
+          ),
+        ),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -51,7 +65,9 @@ class _AppProviderState extends State<AppProvider> {
             ),
           ),
         ],
-        child: widget.child,
+        child: TranslationProvider(
+          child: widget.child,
+        ),
       ),
     );
   }
