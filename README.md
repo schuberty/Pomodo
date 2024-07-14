@@ -49,7 +49,7 @@ Also, some tests may be failing as there were breaking changes near the end of t
 
 Each Task has a description field, at the end of the description field there's a tag as:
 
-> <pomodo_app:time_ms:0>
+> <pomodo_app:time_s:0>
 
 Where zero is the duration in seconds of how long the task has been tracked for, as the API doesn't have a metadata option, this was the alternative.
 
@@ -123,7 +123,7 @@ The total time focused in the project (average of bellow tasks) was around 30.6 
 
 #### Outro
 
-- [ ] Add application videos to README
+- [x] Add application videos to README
 - [ ] Add application icon, name and signature
 
 #### Extra
